@@ -2,7 +2,7 @@
 
 *Alice and Bob play a collaborative version of (Quantum)SeaBattle with one bit of communication. We hand them a quantum resource and show that the slightest bit of quantum already helps them outperform the classical benchmark. This quantum advantage brought to the bare essence*
 
-Stripped of the ships, the QSeaBattle game is a 'random access code' [1]: Alice holds a bit string that is unknown to Bob. Bob gets an index Alice cannot see in advance, and he must guess the bit at that index. Alice can send a single bit to support Bob. The optimal strategy when Alice and Bob share only classical information is the majority strategy: Alice sends the bit that occurs most, Bob follows it. This is proven to be the optimal strategy [1].
+Stripped of the ships, the QSeaBattle game is a 'random access code' [1]: Alice holds a bit string that is unknown to Bob. Bob gets an index Alice cannot see in advance, and he must guess the bit at that index. Alice can send a single bit to support Bob. The optimal strategy when Alice and Bob share only classical information is the majority strategy (see our earlier post): Alice sends the bit that occurs most, Bob follows it. This is proven to be the optimal strategy [1].
 
 In this post, we will discuss what happens when Alice and Bob share an entangled quantum resource. The short version: the moment their shared resource crosses out of the classical world, they beat the majority strategy — and, as we will see, while a quantum resource helps Bob guess the bit at his index, it does not actually give him more information about Alice's bit string.
 
@@ -10,7 +10,7 @@ For any strategy and any single bit, we can score how well Bob tracks that bit w
 
 ### A magical box for two bits
 
-Let us build from the smallest case. Alice has two bits, Bob is to guess one of them. Around 2009, Pawłowski and Żukowski [2] wrote down exactly the resource we need. They built it from an entangled photon pair, but we can skip the photons and jump straight to what the device does.
+Let us build from the smallest case. Alice has two bits, Bob is to guess one of them. Around 2009, Pawłowski and Żukowski [2] wrote down exactly the resource we need. They built it from an entangled photon pair, but we can skip the photons and jump straight to what the device does. 
 
 It works like this. Alice feeds her two bits into her half of the device and out comes a single bit, a $1$ or a $0$, which she sends to Bob. Alice's device has a dial with two settings — a latitude and a longitude, like aiming at a point on a globe. Bob feeds Alice's bit into his half, and on his own device he indicates which he is after: Alice's first bit, or her second.
 
@@ -18,15 +18,15 @@ Alice's dial does not decide *which* bit Bob receives — Bob does that, after h
 
 ### The dial draws a sphere
 
-The dial is not just a metaphor — it is the picture. Give the strategy its two advantages: how strongly Bob's output tracks Alice's first bit, and her second. Call them $(c_0, c_1)$. As Alice sweeps her dial from pole to pole through angle $\theta$, these are
+The dial is not just a metaphor — it is the picture. Give the strategy its two advantages: how strongly Bob's output tracks Alice's first bit, and her second. Call the advantages for the two indices $(\text{index}_0, \text{index}_1)$. As Alice sweeps her dial from pole to pole through angle $\theta$, these are
 
-$$c_0 = \cos\theta, \qquad c_1 = \sin\theta,$$
+$$\text{index}_0 = \cos\theta, \qquad \text{index}_1 = \sin\theta,$$
 
-so $c_0^2 + c_1^2 = 1$. Every dial setting is a point on a *circle* in this advantage plane. The two poles are the two clean bits; the equator is the even blend. Note that the total is fixed at one — Alice chooses its *direction*, never its length.
+so $\text{index}_0^2 + \text{index}_1^2 = 1$. Every dial setting is a point on a *circle* in this advantage plane. The two poles are the two clean bits; the equator is the even blend. Note that the total is fixed at one — Alice chooses its *direction*, never its length.
 
-Now overlay what a classical resource can reach. Without the box, Alice's one bit can lean toward one cell or the other, but it must trade — the sum $|c_0| + |c_1|$ cannot exceed one, so the classical strategies fill a diamond. Majority sits at the $(1,1)$ direction of that diamond, where the advantage is spread evenly across the indices. The circle bulges outside the diamond everywhere except at the four corners, where they touch. Those corners are exactly the classical strategies that give up on one bit entirely to nail the other. Everywhere in between, the circle is strictly further out.
+Now overlay what a classical resource can reach. Without the box, Alice's one bit can lean toward one cell or the other, but it must trade — the sum $|\text{index}_0| + |\text{index}_1|$ cannot exceed one, so the classical strategies fill a diamond. Majority sits at the $(1,1)$ direction of that diamond, where the advantage is spread evenly across the indices. The circle bulges outside the diamond everywhere except at the four corners, where they touch. Those corners are exactly the classical strategies that give up on one bit entirely to nail the other. Everywhere in between, the circle is strictly further out.
 
-That crescent between diamond and circle is the whole point. Every strategy inside it is reachable with the quantum device and *impossible* classically — no classical resource ever pushes past $|c_0| + |c_1| = 1$. So the advantage is not a number, it is a region, and the region is precisely quantum-beyond-classical. It appears already at $n=2$, the smallest game there is.
+That crescent between diamond and circle is the whole point. Every strategy inside it is reachable with the quantum device and *impossible* classically — no classical resource ever pushes past $|\text{index}_0| + |\text{index}_1| = 1$. So the advantage is not a number, it is a region, and the region is precisely quantum-beyond-classical. It appears already at $n=2$, the smallest game there is.
 
 ![alt text](Figure_1-1.png)
 > **[FIGURE 1 — the 2D primitive]**
@@ -48,10 +48,17 @@ So, does the quantum version win by telling Bob more (by sharing more informatio
 
 It does not. Alice still sends one bit, with the same balanced statistics as before — averaged over everything, Bob learns exactly as much about her board as majority told him. The box does not stuff more of the board into the message.
 
-To see this properly, let us look at what Bob actually believes after decoding. Give him Alice's bit and let him form a posterior — a probability over which string she holds — and put Shannon's number next to it. Classically Bob has *one* lookup table, fixed when they agreed the strategy. Whatever index he is later handed, he reads the same table, so his posterior is the same histogram every time, with the same entropy. His decoder was frozen at coding.
+To see this properly, let us look at what Bob Alice's communication does with Bob's informayion. Iniyiallu uniform (see fig x). Give him Alice's bit and let him form a posterior — a probability over which string she holds — and put Shannon's number next to it. This is fogure Y.
+
+Classically Bob has *one* lookup table, fixed when they agreed the strategy. It almost feels too intuitive to state tha the lookup is defined when Alices creates her bit. Whatever index he is later handed, he reads the same table, so his posterior is the same histogram every time, with the same entropy. His decoder was frozen at coding.
+
+Fig x Before any info
+Fig y Majority strategy
 
 The box changes one thing: Bob has *two* tables, and he picks which to read after he sees his index. Take the two-bit primitive, where it is starkest. If Bob selects Alice's first bit, his posterior on that bit sharpens — the histogram piles up, entropy drops to about $0.60$ bits — but his posterior on the second bit goes flat, a full $1.00$ bit of uncertainty, a coin. Select the other and the two swap. He can make one bit sharp only by leaving the other blank. What he cannot do is beat the total: the two tables carry the same information between them that the one classical table did. Nothing was added to the message.
 
+Figure Z shows this figure
+Figure Z- the box for hybrid srategy
 > **[FIGURE 4 — what Bob knows]**
 > **Caption:** *Bob's posterior over Alice's strings, with Shannon entropy alongside. Left: the single classical table — one fixed histogram, read no matter which index Bob is asked. Right: the box's two tables — Bob slides the sharp posterior onto the bit he actually wants (entropy $\approx 0.60$ bits) at the cost of a flat posterior on the other ($1.00$ bit). Same total information, reallocated after the fact.*
 > **Alt-text:** Two side-by-side panels of bar histograms over Alice's strings. Left panel: one histogram labelled 'one table, fixed at coding', with an entropy value. Right panel: two histograms labelled 'table A' and 'table B', one sharply peaked (low entropy) and one nearly flat (high entropy), with an arrow labelled 'Bob picks after seeing his index'.
