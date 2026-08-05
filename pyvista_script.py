@@ -150,11 +150,17 @@ def main():
                            line_width=2, opacity=0.7)
 
     # --- axes through origin, extended beyond the sphere ---
-    for u, lab in [((1,0,0), "index_0"), ((0,1,0), "index_1"), ((0,0,1), "index_2")]:
+    # PyVista/VTK labels do not support true LaTeX mathtext in point labels.
+    # Draw base "c" plus a smaller offset digit to mimic a true subscript.
+    for u, idx in [((1,0,0), "2"), ((0,1,0), "0"), ((0,0,1), "1")]:
         u = np.array(u, float)
         line = pv.Line(-AXIS_LEN*u, AXIS_LEN*u)
         p.add_mesh(line, color=C_AXIS, line_width=3)
-        p.add_point_labels([1.6*u], [lab], font_size=28,
+        anchor = 1.6*u
+        p.add_point_labels([anchor], ["c"], font_size=28,
+                           text_color=C_AXIS, shape=None,
+                           show_points=False, always_visible=True)
+        p.add_point_labels([anchor + np.array([0.05, -0.04, 0.0])], [idx], font_size=18,
                            text_color=C_AXIS, shape=None,
                            show_points=False, always_visible=True)
 
@@ -181,6 +187,11 @@ def main():
             p.add_point_labels([[q,q,q+0.15]], ["quantum"], font_size=24,
                             text_color=C_QUANTUM, shape=None,
                             show_points=False, always_visible=True)
+
+    p.add_legend(labels=[
+        ["classical domain", C_POLY, "rectangle"],
+        ["quantum domain", C_SPHERE, "rectangle"],
+    ], loc="lower left", bcolor="white", border=True, size=(0.28, 0.12))
 
     # --- lighting ---
     p.remove_all_lights()

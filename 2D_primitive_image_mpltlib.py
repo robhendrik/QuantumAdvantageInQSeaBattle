@@ -39,7 +39,7 @@ SHOW_DIAGONAL   = True      # the (1,1) diagonal callout, matching 3D (1,1,1)
 SHOW_MAJORITY   = True
 SHOW_QUANTUM    = True
 SHOW_LABELS     = True
-AXIS_LABELS     = ("index_0", "index_1")
+AXIS_LABELS     = (r"$c_1$", r"$c_0$ (advantage for first index)")
 LIM = 1.5
 AXIS_LEN = 1.5
 # =====================================================================
@@ -101,21 +101,25 @@ def main():
         q = 1/np.sqrt(2)
         ax.plot(q, q, 'o', color=C_QUANTUM, markersize=11, zorder=7)
         if SHOW_LABELS:
-            ax.annotate("quantum", (q, q), xytext=(12, -6),
-                        textcoords="offset points", color=C_QUANTUM, fontsize=13)
+            ax.annotate("quantum", (q, q), xytext=(45, -10),
+                        textcoords="offset points", color=C_QUANTUM, fontsize=13,
+                        arrowprops=dict(arrowstyle="->", color=C_QUANTUM, lw=1.2,
+                                        shrinkA=0, shrinkB=10))
 
     # majority at (1/2,1/2) -- RED, matching 3D
     if SHOW_MAJORITY:
         ax.plot(0.5, 0.5, 'o', color=C_MAJORITY, markersize=11, zorder=7)
         if SHOW_LABELS:
-            ax.annotate("majority", (0.5, 0.5), xytext=(-4, -20),
+            ax.annotate("majority", (0.5, 0.5), xytext=(100, -30),
                         textcoords="offset points", color=C_MAJORITY,
-                        fontsize=13, ha="center")
+                        fontsize=13, ha="center", va="center",
+                        arrowprops=dict(arrowstyle="->", color=C_MAJORITY, lw=1.2,
+                                        shrinkA=0, shrinkB=10))
 
     if SHOW_LABELS:
-        ax.text(0.86, 0.86, "quantum\n(the box)", color=C_QUANTUM,
-                fontsize=13, ha="center", va="center")
-        ax.text(0.30, -0.30, "classical", color=C_POLY,
+        ax.text(-0.57, 0.57, "quantum-beyond-classical", color=C_QUANTUM,
+                fontsize=13, ha="center", va="center", rotation = 45)
+        ax.text(-0.30, +0.30, f"classical\ndomain", color=C_POLY,
                 fontsize=13, ha="center", va="center")
 
     for s in ax.spines.values():
