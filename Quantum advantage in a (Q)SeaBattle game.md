@@ -4,32 +4,32 @@
 
 <!-- Feature image: Figure_2-1.png (the 3D sphere/octahedron) -->
 
-Stripped of the ships, the QSeaBattle game is a 'random access code' [1]: Alice holds a bit string that is unknown to Bob. Bob gets an index Alice cannot see in advance, and he must guess the bit at that index. Alice can send a single bit to support Bob. The optimal classical strategy is the majority strategy (see our earlier post): Alice sends the bit that occurs most, Bob follows it. This is proven optimal [1].
+Stripped of the ships, the QSeaBattle game is a 'random access code' [1]: Alice holds a bit string that is unknown to Bob. Bob gets an index Alice cannot see in advance, and he must guess the bit at that index. Alice can send a single bit to support Bob. The optimal classical strategy is the majority strategy (see our earlier post): Alice sends the bit that occurs most, Bob follows it. This is proven to be the optimal strategy for classical communication [1].
 
-In this post, we will discuss what happens when Alice and Bob share an entangled quantum resource. The short version: the moment their shared resource crosses out of the classical world, they beat the majority strategy — and, as we will see, the quantum resource does not actually give Bob more information about Alice's bit string.
+In this post, we will discuss what happens when Alice and Bob share an entangled quantum resource. The short version: the moment their shared resource crosses out of the classical world, they beat the majority strategy — but, this not because Alice is able to share *more* information with Bob.
 
 ### A magical box for two bits
 
-Let us build from the smallest case. Alice has two bits, Bob is to guess one of them. Around 2009, Pawłowski and Żukowski [2] wrote down exactly the resource we need. They built it from an entangled photon pair, but we can skip the photons and jump straight to what the device does.
+Let us build from the smallest case. Alice has two bits, Bob is to guess one of them. Around 2009, Pawłowski and Żukowski [2] wrote down exactly the resource we need. They built it as a 'quantum device' from an entangled photon pair. We will skip the photons and jump straight to what the device does.
 
-Alice feeds her two bits into her half of the device and out comes a single bit — a $1$ or a $0$ — which she sends to Bob. Alice's device has a dial, like aiming at a point on a globe. Bob feeds Alice's bit into his half, and on his own device he indicates which bit he is after: Alice's first, or her second.
+Alice feeds her two bits into her half of the device and out comes a single bit — a $1$ or a $0$ — which she sends to Bob. Alice's device has a dial, like aiming at a point on a globe. Bob feeds Alice's bit into his half of the device, and indicates which bit he is after: Alice's first, or her second.
 
-Alice's dial does not decide *which* bit Bob receives — Bob does that, after he knows his index. What Alice's dial decides is *how much* of each bit is on offer. Point at the North Pole and the box hands Bob her first bit with certainty ($100\%$ win rate) while her second washes out to a coin flip; point at the South Pole and it is the other way round. Set the dial on the equator and both bits are equally available — each at a win rate of about $85\%$, whichever bit Bob picks. **Alice decides how much he gets; Bob decides what he wants.**
+Alice's dial does not decide *which* bit Bob receives — Bob does that, after he knows his index. What Alice's dial decides is *how much* of each bit is on offer. Point at the North Pole and the box hands Bob her first bit with certainty ($100\%$ win rate) while her second washes out to a coin flip; point at the South Pole and it is the other way round. Set the dial on the equator and both bits are equally available — each at a win rate of about $85\%$, whichever bit Bob picks. **Alice decides how much he information gets; Bob decides to what bit that information applies.**
 
 ### The dial draws a sphere
 
-The dial is not just a metaphor — it is the picture. For any strategy and any single bit, we can score how well Bob tracks that bit with one number, the *advantage*, running from $-1$ to $+1$. Zero is a pure guess; plus one is certainty; minus one is its mirror. Call the advantages for the two indices $(c_0, c_1)$. As Alice sweeps her dial from pole to pole through angle $\theta$, these are
+The dial is not just a metaphor — it is the picture. For any strategy and any single bit, we can score how well Bob tracks that bit with one number, the *advantage*, running from $-1$ to $+1$. Zero is a pure guess; plus one is certainty; minus one is its mirror. Advantage is the win rate rescaled: $P_i = \tfrac12(1 + c_i)$.Call the advantages for the two indices $(c_0, c_1)$. As Alice sweeps her dial from pole to pole through angle $\theta$, these are
 
 $$c_0 = \cos\theta, \qquad c_1 = \sin\theta,$$
 
-so $c_0^2 + c_1^2 = 1$. Every dial setting is a point on a *circle* in the advantage plane. The two poles are the two clean bits; the equator is the even blend. Note that the total is fixed at one — Alice chooses its *direction*, never its length. Advantage is the win rate rescaled: $P_i = \tfrac12(1 + c_i)$.
+so $c_0^2 + c_1^2 = 1$. Every dial setting is a point on a *circle* in the advantage plane. The two poles are the two clean bits; the equator is the even blend. Note that the total is fixed at one — Alice chooses its *direction*, never its length. 
 
 Now overlay what a classical resource can reach. Without the box, Alice's one bit can lean toward one index or the other, but it must trade — the sum $|c_0| + |c_1|$ cannot exceed one, so the classical strategies fill a diamond. Majority sits at the $(1,1)$ direction of that diamond, where the advantage is spread evenly. The circle bulges outside the diamond everywhere except at the four corners, where they touch. Those corners are the classical strategies that give up on one bit entirely to nail the other. Everywhere in between, the circle is strictly further out.
 
 That crescent between diamond and circle is the whole point. Every strategy inside it is reachable with the quantum device and *impossible* classically — no classical resource ever pushes past $|c_0| + |c_1| = 1$. It appears already at $n=2$, the smallest game there is.
 
 ![Figure_1-1.png](Figure_1-1.png)
-> *Figure 1: Two bits, two advantages $(c_0, c_1)$. Classical strategies fill the diamond $|c_0| + |c_1| \le 1$; Alice's dial traces the circle $c_0^2 + c_1^2 = 1$. Majority sits on the $(1,1)$ diagonal inside the diamond. The crescent between diamond and circle — reachable by the box, impossible classically — is the quantum-beyond-classical region.*
+> *Figure 1: Two bits, two advantages $(c_0, c_1)$. Classical strategies fill the diamond $|c_0| + |c_1| \le 1$; Alice's dial traces the circle $c_0^2 + c_1^2 = 1$. Majority sits on the $(1,1)$ diagonal inside the diamond. The crescent between diamond and circle — reachable by the quantum device, impossible classically — is the quantum-beyond-classical region.*
 >
 > Alt-text: A square diamond inscribed in a circle. The circle touches the diamond at its four vertices and bulges outside it along every edge. The crescent between diamond edge and circle arc is shaded to highlight the quantum-beyond-classical region. Majority and the quantum optimum are marked on the (1,1) diagonal.
 
@@ -50,11 +50,11 @@ So, does the quantum version win by telling Bob more? Did the 'entanglement' som
 
 It does not. Alice still sends one bit, with the same balanced statistics as before — averaged over everything, Bob learns exactly as much about her board as majority told him. The box does not stuff more of the board into the message. To see what *does* change, let us go back to the geometry.
 
-In both the classical and the quantum case, Alice fixes a point — she aims her dial before knowing Bob's index. Bob then picks which coordinate axis to read. He does not move the point; he chooses which component of it to extract. When he picks bit 2, he reads the $c_2$ component. When he picks bit 3, he reads $c_3$. The point is the same either way.
+In both the classical and the quantum case, Alice fixes a point — she aims her dial before knowing Bob's index. Bob then picks which coordinate axis to read. He does not move the point; he chooses which component of it to extract. When he picks bit 1, he reads the $c_1$ component. When he picks bit 2, he reads $c_2$. The point is the same either way.
 
 This is exactly why the sphere beats the diamond. On the diamond, Alice's advantages are budgeted linearly: $|c_0| + |c_1| \leq 1$, so giving more to one axis takes from the other directly. On the sphere the budget is quadratic: $c_0^2 + c_1^2 = 1$, so both components can be larger simultaneously. The sphere is rounder, not bigger in total. Alice doesn't have more to give — she just loses less in the split.
 
-Rather than working through all possible strategies, let us look at the smallest one that already beats majority. We use a 4-cell board and give Alice the following strategy: she plays majority on the first two bits, and when these two bits tie she falls back to the 2-bit quantum primitive (the one from Figure 1) on the last two bits. The classical majority handles the bulk of the board; the quantum box handles the tail.
+Rather than working through all possible strategies, let us look at the smallest one that already beats majority. We use a 4-cell board and give Alice the following strategy: she plays majority on the first two bits, and when these two bits tie she falls back to the 2-bit quantum primitive (the one from Figure 1) on the last two bits. The classical majority handles the first part of the board; the quantum box handles the tail.
 
 Figure 3 shows the starting point. Before Alice shares anything, Bob's knowledge is uniformly distributed — each board is equally likely.
 
@@ -63,7 +63,7 @@ Figure 3 shows the starting point. Before Alice shares anything, Bob's knowledge
 >
 > Alt-text: A bar chart showing 16 equal-height bars, one for each 4-bit string. A side panel shows Shannon entropy at 4.00 bits and advantage at 0.00 (50% correct). Below, four rows of bit strings each show advantage 0.00.
 
-Based on Alice's bit, Bob can form a posterior — a probability over which string she holds. In Figure 4 we show Bob's posterior if Alice sends a '1' under the majority strategy. He knows that she does not hold a board with zero or one '1', and is more likely to hold a board with a majority of 1's than a tied board.
+Based on Alice's bit, Bob can form a posterior — a probability over which string she holds. In Figure 4 we show Bob's posterior if Alice sends a '1' under the majority strategy. He knows that she cannot hold a board with zero or one '1' (for then she would have send a '0'), and is more likely to hold a board with a majority of 1's than a tied board.
 
 ![Figure_4-1.png](Figure_4-1.png)
 > *Figure 4: Bob's posterior after Alice sends '1' under the majority strategy. Boards with more 1's become more likely; boards with zero or one '1' are ruled out. Shannon entropy drops to 3.38 bits. The advantage is the same for every index — 0.38, or 69% correct.*
